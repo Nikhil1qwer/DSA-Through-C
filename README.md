@@ -1,2 +1,2 @@
-5678
+678
 # Explore DSA with me.
