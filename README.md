@@ -1,2 +1,2 @@
-12345678
+2345678
 # Explore DSA with me.
