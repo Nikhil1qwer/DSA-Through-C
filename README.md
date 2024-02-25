@@ -1,2 +1,2 @@
-67
+7
 # Explore DSA with me.
