@@ -1,3 +1,2 @@
-
-567
+67
 # Explore DSA with me.
