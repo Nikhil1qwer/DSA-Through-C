@@ -1,4 +1,4 @@
-67# Explore DSA with me.
+7# Explore DSA with me.
 
 ## Data Structures and Algorithms
 This repository contains implementations of various data structures and algorithms in different programming languages.
