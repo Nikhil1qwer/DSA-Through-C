@@ -1,43 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void swap(int *a, int *b) {
-    *a = *a ^ *b;
-    *b = *a ^ *b;
-    *a = *a ^ *b;
-}
-
-void BubbleSort(int *arr, int n) {
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n - 1; j++) {
-            if(arr[j] > arr[j + 1]) {   
-            
-            swap(&arr[j],&arr[j+1]);
+void bubbleSort(int* nums, int size) {
+    for(int i = 0; i < size - 1; i++) {
+        for(int j = 0; j < size - i - 1; j++) {
+            if(nums[j] > nums[j + 1]) {
+                int temp = nums[j];
+                nums[j] = nums[j + 1];
+                nums[j + 1] = temp;
             }
         }
     }
-}
-
-void Display(int *arr, int n) {
-    for(int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
 }
 
 int main() {
     int size;
     scanf("%d", &size);
 
-    int *myArray = (int *) malloc (size * sizeof(int));
+    int* nums = (int *)malloc(sizeof(int) * size);
     for(int i = 0; i < size; i++) {
-        scanf("%d", &myArray[i]);
+        scanf("%d", &nums[i]);
     }
 
-    Display(myArray, size);
-    BubbleSort(myArray, size);
-    Display(myArray, size);
+    bubbleSort(nums, size);
 
-    free(myArray);
-    return 0;
+    for(int i = 0; i < size; i++) {
+        printf("%d ", nums[i]);
+    }
+    
 }

@@ -1,84 +1,230 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-// Define the structure for a node
-struct Node {
-    int data;
-    struct Node* next;
-};
+#define escape printf("\n")
+#define scan(x) scanf("%d", &(x));
 
-// Initialize an empty linked list
-struct Node* head = NULL;
+typedef struct node {
+    int val;
+    struct node* next;
+} Node;
 
-// Function to create a new node
-struct Node* createNode(int value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
+Node* head = NULL;
+
+Node* NewNode(int data) {
+    Node* newNode = (Node *) malloc (sizeof(Node));
+    newNode->val = data;
     newNode->next = NULL;
     return newNode;
 }
 
-// Function to insert a node at the beginning
-void insertAtBeginning(int value) {
-    struct Node* newNode = createNode(value);
+void insertAtBeginning(int data) {
+    Node* newNode = NewNode(data);
+    if(!head) {
+        head = newNode;
+        return;
+    }
     newNode->next = head;
     head = newNode;
 }
 
-// Function to insert a node at the end
-void insertAtEnd(int value) {
-    struct Node* newNode = createNode(value);
-    if (head == NULL) {
+Node* tail = NULL;
+void insertAtEnd(int data) {
+    Node* newNode = NewNode(data);
+    if(!head) {
         head = newNode;
+        tail = newNode;
+    }
+    tail->next = newNode;
+    tail = newNode;
+}
+
+void deleteAtHead() {
+    if(!head) {
+        printf("List is Empty\n");
         return;
     }
-    struct Node* temp = head;
-    while (temp->next != NULL) {
+
+    if(!head->next) {
+        head = NULL;
+        return;
+    }
+
+    Node* del = head;
+    head = head->next;
+
+    free(del);
+}
+
+void deleteAtTail() {
+    if(!head) {
+        printf("List is Empty\n");
+        return;
+    }
+
+    if(!head->next) {
+        head = NULL;
+        return;
+    }
+}
+
+void insertAtPosition(int data, int position) {
+    if(position == 1) {
+        insertAtBeginning(data);
+    }
+    Node* newNode = NewNode(data);
+    Node* temp = head;
+    for(int i = 1; i < position - 1 && temp != NULL; i++) {
         temp = temp->next;
     }
+    
+    if(temp == NULL) {
+        printf("Invalid Position\n");
+        return;
+    }
+
+    newNode->next = temp->next;
     temp->next = newNode;
 }
 
-// Function to delete a node by value
-void deleteNode(int value) {
-    struct Node* temp = head;
-    struct Node* prev = NULL;
-    while (temp != NULL && temp->data != value) {
+void deleteAtPos(int position) {
+    if(position == 1) {
+        deleteAtHead();
+    }
+
+    Node* temp = head;
+    Node* prev = NULL;
+    for(int i = 1; i < position - 1 && temp != NULL; i++) {
         prev = temp;
         temp = temp->next;
     }
-    if (temp == NULL) {
-        printf("Node with value %d not found.\n", value);
+
+    if(temp == NULL) {
+        printf("Invalid Position\n");
         return;
     }
-    if (prev == NULL) {
-        head = temp->next;
-    } else {
-        prev->next = temp->next;
-    }
+
+    prev->next = temp->next;
+
     free(temp);
 }
 
-// Function to display the linked list
+void reverseLinkedList() {
+    Node* prev = NULL;
+    Node* cur = head;
+    Node* nxt = NULL;
+
+    while(cur != NULL) {
+        nxt = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = cur->next;
+    }
+
+    head = prev;
+}
+
+
+
+
+void searchList(int data) {
+    Node* temp = head;
+    int count = 1;
+    while(temp != NULL) {
+        if(temp->val == data) {
+            printf("Data is Found at Position %d\n", count);
+            return;
+        }
+        temp = temp->next;
+        count++;
+    }
+
+    printf("Data Not Found!!");
+}
+
 void displayList() {
-    struct Node* temp = head;
-    printf("Linked List: ");
-    while (temp != NULL) {
-        printf("%d -> ", temp->data);
+    Node* temp = head;
+    if(!temp) {
+        printf("List is Empty\n");
+        return;
+    }
+
+    while(temp != NULL) {
+        printf("%d -> ", temp->val);
         temp = temp->next;
     }
-    printf("NULL\n");
+
+    printf("NULL");
+    escape;
 }
 
 int main() {
-    insertAtBeginning(10);
-    insertAtBeginning(20);
-    insertAtEnd(30);
-    insertAtEnd(40);
-    displayList();
+    int choice, data, pos;
+    do {
+        printf("1. Insertion At Head\n");
+        printf("2. Insertion At Tail\n");
+        printf("3. Insertion At Position\n");
+        printf("4. Delete At Head\n");
+        printf("5. Delete At Tail\n");
+        printf("6. Delete At Position\n");
+        printf("7. Reverse LinkedList\n");
+        printf("8. Search In LinkedList\n");
+        printf("9. Display LinkedList\n");
+        printf("10. Exit\n");
 
-    deleteNode(20);
-    displayList();
+        printf("Enter Choice: ");
+        scanf("%d", &choice);
+        escape;
+
+        switch(choice) {
+            case 1:
+                printf("Enter Data: ");
+                scan(data);
+                insertAtBeginning(data);
+                escape;
+                break;
+            case 2:
+                printf("Enter Data: ");
+                scan(data);
+                insertAtEnd(data);
+                escape;
+                break;
+            case 3:
+                printf("Enter Data: ");
+                scan(data); scan(pos);
+                insertAtPosition(data, pos);
+                escape;
+                break;
+            case 4:
+                deleteAtHead();
+                break;
+            case 5:
+                deleteAtTail();
+                break;
+            case 6:
+                printf("Enter Position to Delete: ");
+                scan(pos);
+                deleteAtPos(pos);
+                break;
+            case 7:
+                reverseLinkedList();
+                break;
+            case 8:
+                printf("Enter Data To Search: ");
+                scan(data);
+                searchList(data);
+                break;
+            case 9:
+                displayList();
+                break;
+            case 10:
+                exit(0);
+            default:
+                printf("Invalid Choice\n");
+        }
+        escape;
+    } while(true);
 
     return 0;
 }

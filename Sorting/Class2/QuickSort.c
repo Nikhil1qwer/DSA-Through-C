@@ -8,7 +8,7 @@ void swap(int *a, int *b) {
 } 
 
 //lomputoo
-int partition(int *arr, int low, int high) {
+int partition1(int *arr, int low, int high) {
     int pivot = arr[high];
     int i = low - 1;
 
@@ -18,42 +18,45 @@ int partition(int *arr, int low, int high) {
             swap(&arr[i], &arr[j]);
         }
     }
+    
     swap(&arr[i + 1], &arr[high]);
     return i + 1;
 }
 
 // naive
-
-int partition1(int *arr, int low, int high) {
+int partition(int *arr, int low, int high) {
     int k = 0;
     int dp[high - low + 1];
     int pivot = arr[low];
+    
     for(int i = low + 1; i <= high; i++) {
         if(arr[i] <= pivot) {
             dp[k++] = arr[i];
         }
     }
-    int pivotIndex = low + k;
+
+    int PivotIndex = low + k;
     dp[k++] = pivot;
+
     for(int i = low + 1; i <= high; i++) {
         if(arr[i] > pivot) {
             dp[k++] = arr[i];
         }
     }
-    k = 0;
-    for(int i = low + 1; i <= high; i++) {
-        arr[i] = dp[k++];
+
+    for(int i = 0; i < k; i++) {
+        arr[low + i] = dp[i];
     }
 
-
+    return PivotIndex;
 }
 
 void quicksort(int *arr, int low, int high) {
     if(low < high) {
         int pi = partition(arr, low, high);
 
-        quicksort(arr, low, pi - 1);
-        quicksort(arr, pi + 1, high);
+        quicksort(arr, low, pi - 1); // 0 <> -1
+        quicksort(arr, pi + 1, high); // 1 <> 4
 
     }
 }

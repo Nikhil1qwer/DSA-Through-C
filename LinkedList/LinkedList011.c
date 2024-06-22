@@ -9,7 +9,7 @@ typedef struct node {
 
 Node *head = NULL;
 
-Node* NewNode(int data) {
+Node* NewNode(int data) { // constructor
     Node* newNode = (Node *) malloc (sizeof(Node));
     newNode->data = data;
     newNode->next = NULL;

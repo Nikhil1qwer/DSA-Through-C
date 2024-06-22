@@ -56,7 +56,7 @@ int peek() {
 
 void display() {
     while(!isEmpty()) {
-        printf("%d , peek());
+        printf("%d ", peek());
         pop();
     }
 }
