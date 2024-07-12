@@ -81,6 +81,20 @@ bool search(TreeNode* root, int key) {
     return search(root->right, key);
 }
 
+void deleteNode(TreeNode* root, int val) {
+    if(!root->left && !root->right) return;
+
+    if(root->left && root->left->val == val) {
+        root->left = NULL;
+    }
+    if(root->right && root->right->val == val) {
+        root->right = NULL;
+    }
+
+    deleteNode(root->left, val);
+    deleteNode(root->right, val);
+}
+
 int main() {
     int choice, data, size, key;
     do {
