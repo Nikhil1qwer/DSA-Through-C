@@ -1,0 +1,10 @@
+#Greedy Approach / Algorithm:
+
+    In general terms an Algorithm that follows sequence of operations as the question mentions
+     and isn't the most "optimal solution". But is a solution
+
+Working of Greedy Approach depends on the Contraints of the Question.
+
+##Note:
+
+    --> When Greedy Approach Fails Dynamic Programming comes into the picture.

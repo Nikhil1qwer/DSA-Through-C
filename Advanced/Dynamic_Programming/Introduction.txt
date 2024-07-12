@@ -1,0 +1,5 @@
+#Dynamic Programming:
+
+    Dynamic programming is an algorithmic paradigm that breaks down a complex problem into smaller subproblems,
+     solves each subproblem only once, and stores the solutions to subproblems to avoid redundant computation.
+     This approach is particularly useful for problems that have overlapping subproblems or that can be decomposed into smaller subproblems.
